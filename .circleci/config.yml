@@ -56,11 +56,11 @@ jobs:
           name: Analyze with SonarCloud
           command: |
             ./sonar-scanner-4.5.0.2216-linux/bin/sonar-scanner \
-              -Dsonar.projectKey=$Project_Key \
-              -Dsonar.organization=$Organization \
+              -Dsonar.projectKey=saks-code-repo \
+              -Dsonar.organization=dhanu0001 \
               -Dsonar.sources=. \
-              -Dsonar.host.url=$Host \
-              -Dsonar.login=$Sonar_Token \
-              -Dsonar.sources=src \
-              -Dsonar.java.binaries=target
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.login=97e22ce748b6b6855d1f1fcd0e3ca2323abd0219 \
+              -Dsonar.sources=src/main/java/ \
+              -Dsonar.java.binaries=target/classes
               ls -lrt /home/circleci/project/target/site 
