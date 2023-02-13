@@ -1,66 +1,26 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  build:
+  say-hello:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: cimg/openjdk:11.0.16
-      # - image: circleci/node:14
-    # environment:
-    #   SONAR_TOKEN: eea8bec81489972faf09e2fba4048155f45adab7
-    #   SONAR_PROJECT_KEY: dhanu0001
-    #   SONAR_ORGANIZATION: dhanu0001
+      - image: cimg/base:stable
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
-      # - run:
-      #    command: |
-      #     # cd /home/circleci/project/
-      #     apt-get update
-      #     apt-get install -y jq checkstyle
-      #     wget http://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
-      #     tar xzf apache-maven-3.5.4-bin.tar.gz
-      #     ln -s apache-maven-3.5.4 maven
-      #     wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
-      #     unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
-      #     export PATH=$PATH:/sonar-scanner-3.3.0.1492-linux/bin/
-      # - run:
-      #     name: Install dependencies
-      #     command: npm ci
-      # - run:
-      #     name: Run tests
-      #     command: npm test
       - run:
-          name: Install SonarScanner
-          command: |
-            wget http://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
-            tar xzf apache-maven-3.5.4-bin.tar.gz
-            rm apache-maven-3.5.4-bin.tar.gz
-            ln -s apache-maven-3.5.4 maven
-            wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.5.0.2216-linux.zip
-            unzip sonar-scanner-cli-4.5.0.2216-linux.zip
-            rm sonar-scanner-cli-4.5.0.2216-linux.zip
-            export PATH=$PATH:/sonar-scanner-3.3.0.1492-linux/bin/
-            # cd /home/circleci/project/
-            cd /home/circleci/project/
-            ls -lrt /home/circleci/            
-            # mvn clean install
-            # mvn clean install
-            mvn install -DskipTests
-            # mvn test
-            mvn checkstyle:checkstyle
-            curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=$Project >result.json
-            ls -lrt /home/circleci/project/target/
-            # mvn install -DskipTests
-            # mvn sonar:sonar
-            # ls -lrt /home/circleci/project/
-      - run:
-          name: Analyze with SonarCloud
-          command: |
-            ./sonar-scanner-4.5.0.2216-linux/bin/sonar-scanner \
-              -Dsonar.projectKey=$Project_Key \
-              -Dsonar.organization=$Organization \
-              -Dsonar.sources=. \
-              -Dsonar.host.url=$Host \
-              -Dsonar.login=$Sonar_Token \
-              -Dsonar.sources=src \
-              -Dsonar.java.binaries=target
-              ls -lrt /home/circleci/project/target/site 
+          name: "Say hello"
+          command: "echo Hello, World!"
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  say-hello-workflow:
+    jobs:
+      - say-hello
