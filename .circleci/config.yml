@@ -61,6 +61,6 @@ jobs:
               -Dsonar.sources=. \
               -Dsonar.host.url=https://sonarcloud.io \
               -Dsonar.login=97e22ce748b6b6855d1f1fcd0e3ca2323abd0219 \
-              -Dsonar.sources=src/main/java/ \
-              -Dsonar.java.binaries=target/classes
+              -Dsonar.sources=src/main/ \
+              -Dsonar.java.binaries=target/
               ls -lrt /home/circleci/project/target/site 
